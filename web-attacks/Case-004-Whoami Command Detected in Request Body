@@ -1,1 +1,41 @@
+Incident: Possible SQL injection detected
 
+Indicators:
+Alert Trigger Reason : Requested URL Contains OR 1 = 1 
+Source IP: 61.177.172.87
+Source port: 49821
+Destination IP: 172.16.17.16
+Destination Port: 443
+
+Investigation:
+Understanding why alert was triggered:
+  Request Body Contains whoami string
+
+Traffic information:
+SOURCE:
+  After researching ip address using ARIN Whois/RDAP, The IP address is owned by CHINANET jiangsu province network
+
+DESTINATION:
+  The destination is a webserver on the simulated SIEM.
+
+PROTOCOL
+  The protocol being used: HTTPS
+
+Findings:
+  An attacker using a telecom services domain exectuted remote commands on a company web server by putting commands in POST request paramaters
+
+This user is not on the company network.
+
+After looking through logs the attacker did multiple requests executing commands on the webservers terminal. This traffic is malicous.
+
+Just to be sure, I analyzed the email logs to check if this was a scheduled test, it was not. Nothing like that was ever mentioned.
+
+The traffic flow is Internet -> Company network.
+
+After analysic the logs, the injection attempts all resulted in response code 200, so I looked at our endpoints to see the processes on the web server, and the commands did go through on the webserver.
+
+Conclusion:
+True positive alert.
+
+Response:
+Commands when through, first contain the system, then escalate the alert.
