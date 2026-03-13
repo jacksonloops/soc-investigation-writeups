@@ -1,7 +1,7 @@
-Incident: Possible SQL injection detected
+Incident: Whoami Command Detected in Request Body
 
 Indicators:
-Alert Trigger Reason : Requested URL Contains OR 1 = 1 
+Alert Trigger Reason : Whoami Command Detected in Request Body
 Source IP: 61.177.172.87
 Source port: 49821
 Destination IP: 172.16.17.16
