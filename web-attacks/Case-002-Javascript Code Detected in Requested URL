@@ -1,0 +1,27 @@
+Incident: Javascript Code Detected in Requested URL
+
+Indicators:
+
+
+Investigation:
+  Understanding why alert was triggered:
+    Looking at the URL requested and rule triggered, we can see the URL contaned a JS query, which is why the alert triggered. (https://172.16.17.17/search/?q=<$script>javascript:$alert(1)<$/script>)
+
+Traffic information:
+  SOURCE:
+    Analyzing IP, 112.85.42.13, Looking at our endpoints it is not from the company. Now let's look it up with ARIN Whois/RDAP. Putting it in there, we see this IP is owned by China Unicom Jiangsu province network China Unicom, a Chinese Telecom service provider.
+
+  DESTINATION:
+   Analyzing IP, 172.16.17.17, Looking at our endpoints this domain is a webserver for the company. 
+
+  PROTOCOL
+    The communication is occuring using HTTPS protocol
+
+Findings:
+  After analyzing logs from the outside IP, we see they attempted multiple requests with malicous JS code in the URLS. However all the JS XSS attempts resulted in a 302 (redirect) so we can assume the attack failed. To be sure I looked through the email logs to make sure this was not a planned test. It indeed was not.
+
+Conclusion:
+  The company web server recieved multiple attempts at a JS injection with XSS attacks. All of them failed and they were coming from someone using a service provider IP malicously.
+
+Response:
+  No escalation needed, blocking IP also not necessary because it's a service provider, it may be used again from a normal user.
