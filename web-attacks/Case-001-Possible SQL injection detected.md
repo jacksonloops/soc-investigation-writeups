@@ -6,7 +6,7 @@
 
 | Field | Detail |
 |---|---|
-| Event Time | \[From SIEM alert\] |
+| Event Time | (See Investigation Timeline) |
 | Severity | Medium |
 | Rule | Possible SQL Injection Detected — URL Contains `OR 1 = 1` |
 
